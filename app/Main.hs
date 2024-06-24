@@ -7,21 +7,17 @@ main :: IO ()
 main = do
 
     args <- getArgs
-    -- Assuming `url` is defined somewhere earlier
     let url = args !! 0
-    
-    -- Check and drop the URL prefix if it matches "http://" or "https://"
+
+
     let strippedUrl = if take 7 url == "http://"
                           then drop 7 url
                           else if take 8 url == "https://"
                                   then drop 8 url
                                   else url
     
-    -- Create HTTP manager
-    manager <- newManager tlsManagerSettings
-
     
-    -- This is convenient but painful to look at
+    manager <- newManager tlsManagerSettings
 
     request <- parseRequest ("http://" ++ strippedUrl);
     
